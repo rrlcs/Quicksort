@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-unsigned int *quicksort(unsigned int *, unsigned int, unsigned int);
+unsigned int *quicksort(unsigned int *, unsigned int, unsigned int, unsigned int, unsigned int);
 
 int main()
 {
@@ -22,10 +22,12 @@ int main()
 		printf("%d", *(arr+i));
 	}
 
+	printf("Enter the Position of pivot element : \n");
+	scanf("%d", &pivot);
 
 	big_index = 1;
         small_index = size-1;
-	quicksort(arr, big_index, small_index);
+	arr = quicksort(arr, big_index, small_index, size, pivot);
 	
 	for(i=0; i<size; i++)
 	{
@@ -34,11 +36,11 @@ int main()
 //	free(arr);
 	return 0;
 }
-unsigned int *quicksort(unsigned int *arr, unsigned int big_index, unsigned int small_index)
+unsigned int *quicksort(unsigned int *arr, unsigned int big_index, unsigned int small_index, unsigned int size, unsigned int pivot)
 {
-	unsigned int i, temp1, temp2, pivot;
-	printf("Enter the Position of pivot element : \n");
-	scanf("%d", &pivot);
+	unsigned int i, temp1, temp2;
+
+
 GO :	while(*(arr+big_index) <= *(arr+pivot))
 	{
 		++(big_index);
@@ -72,15 +74,21 @@ GO :	while(*(arr+big_index) <= *(arr+pivot))
 	printf("Position of pivot : %d\n", pivot);
 	printf("Small_index : %d\n", small_index);
 	printf("Big_index : %d\n", big_index);
-	while(big_index <= small_index)
+	if(small_index > 0)
 	{
 		big_index = pivot + 1;
 		small_index = small_index - 1;
-		arr = quicksort(arr, big_index, small_index);
-	
+		printf("Function Calling Again");
+		arr = quicksort(arr, big_index, small_index, size, pivot);
+	}	
+	if(size > big_index)
+	{
+		pivot = small_index + 1;
 		big_index = pivot + 2;
 		small_index = small_index - 1;
-		arr = quicksort(arr, big_index, small_index);
+		printf("Function Calling Again Again");
+		arr = quicksort(arr, big_index, small_index, size, pivot);
 	}
+	return arr;
 
 }
