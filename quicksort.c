@@ -39,8 +39,10 @@ int main()
 unsigned int *quicksort(unsigned int *arr, unsigned int big_index, unsigned int small_index, unsigned int size, unsigned int pivot)
 {
 	unsigned int i, temp1, temp2;
+	unsigned int n = small_index, b, s;
 
-
+	if(big_index > small_index)
+		return arr;
 GO :	while(*(arr+big_index) <= *(arr+pivot))
 	{
 		++(big_index);
@@ -70,27 +72,32 @@ GO :	while(*(arr+big_index) <= *(arr+pivot))
 	temp2 = *(arr+small_index);
 	*(arr+small_index) = *(arr+pivot);
 	*(arr+pivot) = temp2;
-
+	s = small_index;
 	printf("Position of pivot : %d\n", pivot);
 	printf("Small_index : %d\n", small_index);
 	printf("Big_index : %d\n", big_index);
-	while(small_index > 0)
+	if(small_index > 0)
 	{
 		big_index = pivot + 1;
 		small_index = small_index - 1;
 		size = small_index;
-		printf("Function Calling Again");
+		printf("Function Calling Again\n");
 		arr = quicksort(arr, big_index, small_index, size, pivot);
 	}
 		
-	if(size > big_index)
+
+		printf("Function one ends here\n");
+/*		pivot = s;
+		big_index = pivot + 1;
+
+	if(big_index < n)
 	{
-		pivot = small_index + 1;
-		big_index = pivot + 2;
-		small_index = small_index - 1;
-		printf("Function Calling Again Again");
-		arr = quicksort(arr, big_index, small_index, size, pivot);
+
+
+		small_index = n;
+		printf("Function Calling Again Again\n");
+		arr = quicksort(arr, big_index, small_index, n, pivot);
 	}
-	return arr;
+*/	return arr;
 
 }
